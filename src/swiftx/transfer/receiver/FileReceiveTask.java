@@ -18,7 +18,7 @@ public class FileReceiveTask implements Runnable {
         private static final int BUFFER_SIZE = 64 * 1024;
 
         // The key Bytes[] (hardcoded for now)
-        private static final byte[] KEY_BYTES = "1234567890ABCDEFGHIJ".getBytes();
+        private static final byte[] KEY_BYTES = "1234567890ABCDEF".getBytes();
 
         private final Socket socket;
 

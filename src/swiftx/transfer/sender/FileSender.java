@@ -23,7 +23,7 @@ public class FileSender {
     private static final int BUFFER_SIZE = 64*1024;
 
     // AES Key (Hardcoded for now)
-    private static final byte[] KEY_BYTES = "1234567890ABCDEFGHIJ".getBytes();
+    private static final byte[] KEY_BYTES = "1234567890ABCDEF".getBytes();
 
     // File Sending Method
     public static void sendFile(String ip, int port, File file) throws Exception {
