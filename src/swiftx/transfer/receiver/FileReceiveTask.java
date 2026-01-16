@@ -44,7 +44,17 @@ public class FileReceiveTask implements Runnable {
 
             // Reading MetaData from DataInputStream
             FileMetaData metaData = FileMetaData.readFrom(dis);
-            System.out.println("Receiving - "+ metaData.fileName + " | " + metaData.fileSize);
+            double sizeInMB = metaData.fileSize / (1024.0 * 1024.0);
+
+            if (sizeInMB < 0.01) {
+                System.out.printf("Receiving - %s | %.2f KB%n",
+                        metaData.fileName,
+                        metaData.fileSize / 1024.0);
+            } else {
+                System.out.printf("Receiving - %s | %.2f MB%n",
+                        metaData.fileName,
+                        sizeInMB);
+            }
 
             // Reading IV as per our protocol
             // First length of IV
@@ -96,13 +106,14 @@ public class FileReceiveTask implements Runnable {
                     }
                 }
             }
+            DataInputStream encryptedInput =  new DataInputStream(cis);
 
             byte[] receiverHash = messageDigest.digest();
 
             // Reading Sender's Checksum
-            int hashLen = dis.readInt();
+            int hashLen = encryptedInput.readInt();
             byte[] senderHash = new byte[hashLen];
-            dis.readFully(senderHash);
+            encryptedInput.readFully(senderHash);
 
             System.out.println();
 
@@ -111,6 +122,7 @@ public class FileReceiveTask implements Runnable {
             } else {
                 System.out.println("File corrupted");
             }
+            socket.close();
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -69,16 +69,18 @@ public class FileSender {
                 int percent = (int) ((sent * 100) / file.length());
                 System.out.print("\rSending: " + percent + "%");
             }
-
-            cos.flush();
-            cos.close();
+            DataOutputStream encryptedOutput = new DataOutputStream(cos);
 
             byte[] checksum = messageDigest.digest();
-            dos.writeInt(checksum.length);
-            dos.write(checksum);
-            dos.flush();
+            encryptedOutput.writeInt(checksum.length);
+            encryptedOutput.write(checksum);
+            System.out.println();
+            System.out.println(metaData.fileName + " - sent successfully");
 
-            socket.close();
+
+
+            cos.close();
+
         }
 
 
