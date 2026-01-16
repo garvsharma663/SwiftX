@@ -176,7 +176,7 @@ Detailed design decisions are documented separately in the security documentatio
 
 Download the latest release from GitHub:
 
-**GitHub Release:** [Release v1.0.0](https://github.com/garvsharma663/SwiftX/releases)
+**GitHub Release:** [Release v1.0.2](https://github.com/garvsharma663/SwiftX/releases)
 
 ---
 
